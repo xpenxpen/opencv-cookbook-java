@@ -6,6 +6,7 @@ import static org.bytedeco.javacpp.opencv_imgcodecs.imwrite;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.IntBuffer;
 
 import javax.swing.JFrame;
 
@@ -136,5 +137,13 @@ public class OpenCVUtilsJava {
      */
     public static MatVector wrapInMatVector(Mat mat) {
         return new MatVector(mat);
-    }    
+    }
+    
+    /**
+     * Creates a `IntBuffer` and put `v` as its only element.
+     */
+    public static IntBuffer wrapInIntBuffer(int v) {
+        return IntBuffer.wrap(new int[]{v});
+    }
+    
 }
