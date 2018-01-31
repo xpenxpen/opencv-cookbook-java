@@ -10,6 +10,7 @@ import java.nio.IntBuffer;
 
 import javax.swing.JFrame;
 
+import org.bytedeco.javacpp.DoublePointer;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.MatVector;
@@ -144,6 +145,37 @@ public class OpenCVUtilsJava {
      */
     public static IntBuffer wrapInIntBuffer(int v) {
         return IntBuffer.wrap(new int[]{v});
+    }
+    
+    public static Mat toMat8U(Mat src) {
+        return toMat8U(src, true);
+    }
+
+    /**
+     * Convert `Mat` to one where pixels are represented as 8 bit unsigned integers (`CV_8U`).
+     * It creates a copy of the input image.
+     *
+     * @param src input image.
+     * @return copy of the input with pixels values represented as 8 bit unsigned integers.
+     */
+    public static Mat toMat8U(Mat src, boolean doScaling) {
+        DoublePointer minVal = new DoublePointer(Double.MAX_VALUE);
+        DoublePointer maxVal = new DoublePointer(Double.MIN_VALUE);
+        opencv_core.minMaxLoc(src, minVal, maxVal, null, null, new Mat());
+        double min = minVal.get(0);
+        double max = maxVal.get(0);
+        double scale = 1d;
+        double offset = 0d;
+
+        if (doScaling) {
+            double s = 255d / (max - min);
+            scale = s;
+            offset = -min * s;
+        }
+
+        Mat dest = new Mat();
+        src.convertTo(dest, opencv_core.CV_8U, scale, offset);
+        return dest;
     }
     
 }
