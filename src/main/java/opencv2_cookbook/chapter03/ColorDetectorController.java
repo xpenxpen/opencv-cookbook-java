@@ -1,9 +1,9 @@
 package opencv2_cookbook.chapter03;
 
-import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_imgcodecs;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
+import org.bytedeco.opencv.opencv_core.Mat;
 
 /**
  * Implements the controller for the color corrector example in Chapter 3

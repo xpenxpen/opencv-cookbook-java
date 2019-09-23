@@ -4,8 +4,8 @@ import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_imgcodecs;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
 
 /**
  * Example for section "Retrieving similar images using histogram comparison" in Chapter 4.

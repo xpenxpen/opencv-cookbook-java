@@ -4,15 +4,15 @@ import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_core.CvMemStorage;
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Point;
-import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.bytedeco.javacpp.opencv_imgcodecs;
-import org.bytedeco.javacpp.opencv_imgproc;
-import org.bytedeco.javacpp.indexer.FloatRawIndexer;
 import org.bytedeco.javacv.JavaCV;
+import org.bytedeco.opencv.global.opencv_core;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
+import org.bytedeco.opencv.global.opencv_imgproc;
+import org.bytedeco.opencv.opencv_core.CvMemStorage;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Point;
+import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_imgproc.Vec2fVector;
 
 /**
  * Detect lines using standard Hough transform approach.
@@ -37,28 +37,32 @@ public class Ex2HoughLines {
         OpenCVUtilsJava.show(canny, "Canny Contours");
 
         // Hough transform for line detection
-        Mat lines = new Mat();
+        Vec2fVector lines = new Vec2fVector();
         CvMemStorage storage = opencv_core.cvCreateMemStorage(0);
         int method = opencv_imgproc.HOUGH_STANDARD;
         int distanceResolutionInPixels = 1;
         double angleResolutionInRadians = Math.PI / 180;
         int minimumVotes = 80;
+        double srn = 0.0;
+        double stn = 0.0;
+        double min_theta = 0.0;
+        double max_theta = opencv_core.CV_PI;
         opencv_imgproc.HoughLines(
           canny,
           lines,
           distanceResolutionInPixels,
           angleResolutionInRadians,
-          minimumVotes);
+          minimumVotes,
+          srn, stn, min_theta, max_theta);
 
         // Draw lines on the canny contour image
-        FloatRawIndexer indexer = lines.createIndexer();
         Mat result  = new Mat();
         src.copyTo(result);
         opencv_imgproc.cvtColor(src, result, opencv_imgproc.COLOR_GRAY2BGR);
         
-        for (int i = 0; i < lines.rows(); i++) {
-            float rho = indexer.get(i, 0, 0);
-            float theta = indexer.get(i, 0, 1);
+        for (int i = 0; i < lines.size(); i++) {
+            float rho = lines.get(i).get(0);
+            float theta = lines.get(i).get(1);
             Point p1;
             Point p2;
 
@@ -77,7 +81,7 @@ public class Ex2HoughLines {
             }
 
             // draw a white line
-            opencv_imgproc.line(result, p1, p2, new Scalar(0, 0, 255, 0), 1, opencv_core.LINE_8, 0);
+            opencv_imgproc.line(result, p1, p2, new Scalar(0, 0, 255, 0), 1, opencv_imgproc.LINE_8, 0);
         }
 
         //save(new File("result.tif"), result);

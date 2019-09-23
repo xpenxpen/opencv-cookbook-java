@@ -5,8 +5,8 @@ import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_imgcodecs;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
 
 /**
  * The second example for section "Computing the image histogram" in Chapter 4, page 92.

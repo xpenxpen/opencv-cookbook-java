@@ -1,22 +1,23 @@
 package opencv2_cookbook.chapter02;
 
+import static org.bytedeco.opencv.global.opencv_imgcodecs.IMREAD_COLOR;
+
 import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_imgcodecs;
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.bytedeco.javacpp.opencv_imgproc;
 import org.bytedeco.javacpp.indexer.FloatIndexer;
+import org.bytedeco.opencv.global.opencv_core;
+import org.bytedeco.opencv.global.opencv_imgproc;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Scalar;
 
 public class Ex3Sharpen {
 
     public static void main(String[] args) {
 
         // Read input image
-        Mat image = OpenCVUtilsJava.loadAndShowOrExit(new File("data/boldt.jpg"), opencv_imgcodecs.IMREAD_COLOR);
+        Mat image = OpenCVUtilsJava.loadAndShowOrExit(new File("data/boldt.jpg"), IMREAD_COLOR);
         
         // Define output image
         Mat dest = new Mat();

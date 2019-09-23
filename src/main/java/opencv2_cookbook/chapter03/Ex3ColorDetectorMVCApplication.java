@@ -26,7 +26,7 @@ import javax.swing.event.ChangeListener;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Mat;
 
 /**
  * Example for section "Using a Model-View-Controller architecture to design an application" in Chapter 3.

@@ -1,12 +1,11 @@
 package opencv2_cookbook.chapter07;
 
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Point;
-import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.bytedeco.javacpp.opencv_imgproc;
-import org.bytedeco.javacpp.indexer.IntRawIndexer;
 import org.bytedeco.javacv.JavaCV;
+import org.bytedeco.opencv.global.opencv_imgproc;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Point;
+import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_imgproc.Vec4iVector;
 
 /**
  * Helper class to detect lines segments using probabilistic Hough transform approach.
@@ -25,14 +24,14 @@ public class LineFinder {
     public int minVotes = 10;
     public double minLength = 0;
     public double minGap = 0d;
-    private Mat lines;
+    private Vec4iVector lines;
     
     /**
      * Apply probabilistic Hough transform.
      */
-    public Mat findLines(Mat binary) {
+    public Vec4iVector findLines(Mat binary) {
         // Hough transform for line detection
-        lines = new Mat();
+        lines = new Vec4iVector();
         opencv_imgproc.HoughLinesP(binary, lines, deltaRho, deltaTheta, minVotes, minLength, minGap);
         return lines;
     }
@@ -43,14 +42,12 @@ public class LineFinder {
      */
     public void drawDetectedLines(Mat image) {
 
-        IntRawIndexer indexer = lines.createIndexer();
-
-        for (int i = 0; i < lines.rows(); i++) {
-            Point pt1 = new Point(indexer.get(i, 0, 0), indexer.get(i, 0, 1));
-            Point pt2 = new Point(indexer.get(i, 0, 2), indexer.get(i, 0, 3));
+        for (int i = 0; i < lines.size(); i++) {
+            Point pt1 = new Point(lines.get(i).get(0), lines.get(i).get(1));
+            Point pt2 = new Point(lines.get(i).get(2), lines.get(i).get(3));
 
             // draw the segment on the image
-            opencv_imgproc.line(image, pt1, pt2, new Scalar(0, 0, 255, 128), 1, opencv_core.LINE_AA, 0);
+            opencv_imgproc.line(image, pt1, pt2, new Scalar(0, 0, 255, 128), 1, opencv_imgproc.LINE_AA, 0);
         }
     }
 }

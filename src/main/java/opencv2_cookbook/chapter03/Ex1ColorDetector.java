@@ -4,8 +4,8 @@ import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_imgcodecs;
-import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
+import org.bytedeco.opencv.opencv_core.Mat;
 
 /**
  * Example for section "Using the Strategy pattern in algorithm design" in Chapter 3.

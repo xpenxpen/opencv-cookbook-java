@@ -4,14 +4,14 @@ import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Point;
-import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.bytedeco.javacpp.opencv_core.Size;
-import org.bytedeco.javacpp.opencv_imgcodecs;
-import org.bytedeco.javacpp.opencv_imgproc;
-import org.bytedeco.javacpp.indexer.FloatRawIndexer;
+import org.bytedeco.opencv.global.opencv_core;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
+import org.bytedeco.opencv.global.opencv_imgproc;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Point;
+import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.opencv_core.Size;
+import org.bytedeco.opencv.opencv_imgproc.Vec3fVector;
 
 /**
  * Detect circles using Hough transform approach.
@@ -43,19 +43,18 @@ public class Ex4HoughCircles {
         int votes = 100;
         int minRadius = 40;
         int maxRadius = 90;
-        Mat circles = new Mat();
+        Vec3fVector circles = new Vec3fVector();
         opencv_imgproc.HoughCircles(smooth, circles, opencv_imgproc.HOUGH_GRADIENT, dp, minDist, highThreshold, votes, minRadius,
                 maxRadius);
 
         // Draw lines on the canny contour image
         Mat colorDst = new Mat();
         opencv_imgproc.cvtColor(src, colorDst, opencv_imgproc.COLOR_GRAY2BGR);
-        FloatRawIndexer indexer = circles.createIndexer();
-        for (int i = 0; i < circles.cols(); i++) {
-            Point center = new Point(opencv_core.cvRound(indexer.get(0, i, 0)), opencv_core.cvRound(indexer.get(0, i, 1)));
-            int radius = opencv_core.cvRound(indexer.get(0, i, 2));
+        for (int i = 0; i < circles.size(); i++) {
+            Point center = new Point(opencv_core.cvRound(circles.get(i).get(0)), opencv_core.cvRound(circles.get(i).get(1)));
+            int radius = opencv_core.cvRound(circles.get(i).get(2));
             System.out.println("Circle ((" + center.x() + "," + center.y() + "," + radius + ")");
-            opencv_imgproc.circle(colorDst, center, radius, new Scalar(0, 0, 255, 0), 1, opencv_core.LINE_AA, 0);
+            opencv_imgproc.circle(colorDst, center, radius, new Scalar(0, 0, 255, 0), 1, opencv_imgproc.LINE_AA, 0);
         }
         OpenCVUtilsJava.show(colorDst, "Hough Circles");
     }

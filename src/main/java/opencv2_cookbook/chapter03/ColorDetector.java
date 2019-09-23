@@ -1,8 +1,8 @@
 package opencv2_cookbook.chapter03;
 
 import org.bytedeco.javacpp.indexer.UByteIndexer;
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.opencv.global.opencv_core;
+import org.bytedeco.opencv.opencv_core.Mat;
 
 /**
  * Example of using a strategy pattern in algorithm design.

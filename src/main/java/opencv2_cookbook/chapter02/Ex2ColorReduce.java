@@ -1,19 +1,20 @@
 package opencv2_cookbook.chapter02;
 
+import static org.bytedeco.opencv.global.opencv_imgcodecs.IMREAD_COLOR;
+
 import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_imgcodecs;
-import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.indexer.UByteIndexer;
+import org.bytedeco.opencv.opencv_core.Mat;
 
 public class Ex2ColorReduce {
 
     public static void main(String[] args) {
 
         // Read input image
-        Mat image = OpenCVUtilsJava.loadAndShowOrExit(new File("data/boldt.jpg"), opencv_imgcodecs.IMREAD_COLOR);
+        Mat image = OpenCVUtilsJava.loadAndShowOrExit(new File("data/boldt.jpg"), IMREAD_COLOR);
 
         Mat dest = colorReduce(image, 64);
 

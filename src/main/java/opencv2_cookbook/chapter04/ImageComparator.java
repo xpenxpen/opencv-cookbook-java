@@ -1,7 +1,7 @@
 package opencv2_cookbook.chapter04;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_imgproc;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.global.opencv_imgproc;
 
 /**
  * Computes image similarity using `compareHist`.

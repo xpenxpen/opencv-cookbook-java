@@ -4,13 +4,12 @@ import java.io.File;
 
 import opencv2_cookbook.OpenCVUtilsJava;
 
-import org.bytedeco.javacpp.opencv_core.KeyPointVector;
-import org.bytedeco.javacpp.opencv_core.Mat;
-import org.bytedeco.javacpp.opencv_core.Scalar;
-import org.bytedeco.javacpp.opencv_features2d;
-import org.bytedeco.javacpp.opencv_features2d.DrawMatchesFlags;
-import org.bytedeco.javacpp.opencv_features2d.FastFeatureDetector;
-import org.bytedeco.javacpp.opencv_imgcodecs;
+import org.bytedeco.opencv.opencv_core.KeyPointVector;
+import org.bytedeco.opencv.opencv_core.Mat;
+import org.bytedeco.opencv.opencv_core.Scalar;
+import org.bytedeco.opencv.global.opencv_features2d;
+import org.bytedeco.opencv.opencv_features2d.FastFeatureDetector;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
 
 /**
  * The example for section "Detecting FAST features" in Chapter 8, page 203.
@@ -32,7 +31,7 @@ public class Ex4FAST {
 
         // Draw keyPoints
         Mat canvas = new Mat();
-        opencv_features2d.drawKeypoints(src, keyPoints, canvas, new Scalar(255, 255, 255, 0), DrawMatchesFlags.DEFAULT);
+        opencv_features2d.drawKeypoints(src, keyPoints, canvas, new Scalar(255, 255, 255, 0), opencv_features2d.DEFAULT);
         OpenCVUtilsJava.show(canvas, "FAST Features");
     }
 
